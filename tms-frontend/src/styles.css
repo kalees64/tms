@@ -2,3 +2,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.input {
+  @apply border  bg-transparent text-white  rounded focus:outline-none focus:border-black block w-full p-2.5 placeholder:text-gray-700;
+}
+
+.label {
+  @apply block mb-2 text-sm font-medium text-black;
+}

@@ -1,4 +1,13 @@
-<main class="w-full h-screen p-2 bg-cyan-400">
-  <h3 class="h1">Ticket Management System</h3>
-  <router-outlet></router-outlet>
+<main class="w-full h-screen p-2">
+  <section
+    class="bg-gradient-to-br from-[#23bff8] to-[#2764fe] h-full w-full rounded p-2 overflow-y-scroll no-scrollbar flex flex-col"
+  >
+    <div class="pb-2">
+      <app-header></app-header>
+    </div>
+
+    <div class="flex-1">
+      <router-outlet></router-outlet>
+    </div>
+  </section>
 </main>

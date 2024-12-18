@@ -1,0 +1,97 @@
+<section class="px-2">
+  <h1 class="text-3xl font-bold uppercase px-2 text-white">
+    Ticket by ticket, building better systems
+  </h1>
+
+  <div class="pt-4 px-2">
+    <form>
+      <div class="grid lg:grid-cols-2 gap-2">
+        <div>
+          <label for="title" class="label">Title</label>
+          <input
+            type="text"
+            name="title"
+            class="input"
+            placeholder="Enter Ticket Title"
+          />
+        </div>
+        <div>
+          <label for="title" class="label">Assigned To</label>
+          <select name="profile" id="profile" class="input">
+            <option class="text-black" [defaultSelected]="true">
+              --SELECT--
+            </option>
+            <option value="manager" class="text-black">MANAGER</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 pt-2 gap-2">
+        <div>
+          <label for="description" class="label">Description</label>
+          <quill-editor
+            class="h-40 w-full"
+            placeholder="Enter the description..."
+            [modules]="editorModules"
+            theme="snow"
+            customToolbarPosition="bottom"
+          >
+          </quill-editor>
+        </div>
+
+        <div>
+          <label for="image" class="label">Image</label>
+
+          <div
+            class="lg:h-56 border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center space-y-4"
+            (drop)="onDrop($event)"
+            (dragover)="onDragOver($event)"
+          >
+            <input
+              #fileInput
+              type="file"
+              accept="image/*"
+              class="hidden"
+              (change)="onFileSelected($event)"
+            />
+            <button
+              class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              (click)="fileInput.click()"
+              type="button"
+            >
+              Select Image
+            </button>
+            <p class="text-gray-500 text-sm">
+              or drag and drop an image here or paste an image here
+            </p>
+
+            <!-- Preview section -->
+            <div *ngIf="file" class="mt-4 relative flex flex-col items-center">
+              <img
+                [src]="file | imagePreview"
+                alt="Preview"
+                class="w-24 h-24 object-cover rounded"
+              />
+              <button
+                class="absolute top-0 right-0 bg-red-500 text-white rounded-full px-2 py-1 text-xs"
+                (click)="removeFile()"
+                type="button"
+              >
+                X
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-2 grid">
+        <button
+          type="submit"
+          class="w-full py-2 text-center border border-black rounded hover:bg-black hover:border-black hover:text-white font-semibold"
+        >
+          CREATE TICKET
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

@@ -1,1 +1,59 @@
-<p>register works!</p>
+<section class="w-full h-full flex text-white md:items-center">
+  <div class="w-8/12 max-md:hidden max-lg:w-7/12">
+    <img src="images/bg-3.png" alt="image" class="w-10/12 mx-auto" />
+  </div>
+  <div class="px-10 w-4/12 max-md:w-full max-lg:5/12 max-lg:px-4">
+    <div class="flex flex-col">
+      <h1 class="font-bold text-3xl">SIGN UP</h1>
+      <span class="text-sm ps-1">Your path to resolution begins here</span>
+    </div>
+
+    <form class="pt-4 flex flex-col gap-2">
+      <div>
+        <label for="name" class="label">Name</label>
+        <input type="text" name="name" class="input" placeholder="Enter Name" />
+      </div>
+      <div class="">
+        <label for="email" class="label">Email</label>
+        <input
+          type="email"
+          id="email"
+          class="input"
+          placeholder="Enter Email"
+          required
+        />
+      </div>
+      <div>
+        <label for="password" class="label">Password</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="Enter Password"
+          class="input"
+        />
+      </div>
+      <div>
+        <label for="profile" class="label">Profile</label>
+        <select name="profile" id="profile" class="input">
+          <option class="text-black" [defaultSelected]="true">
+            --SELECT--
+          </option>
+          <option value="manager" class="text-black">MANAGER</option>
+        </select>
+      </div>
+
+      <div class="pt-3">
+        <button
+          type="submit"
+          class="w-full py-2 text-center border border-black rounded hover:bg-black hover:border-black hover:text-white font-semibold"
+        >
+          SIGN UP
+        </button>
+      </div>
+    </form>
+
+    <div class="pt-3 text-center">
+      <p>Already have an account? <a routerLink="/login">Login here</a></p>
+    </div>
+  </div>
+</section>
