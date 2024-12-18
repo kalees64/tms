@@ -4,16 +4,27 @@
       <div>
         <h3 class="font-bold text-xl cursor-pointer">TMS</h3>
       </div>
+
       <div></div>
     </div>
 
     <div class="flex items-center">
       <div></div>
-      <div>
+      <div class="flex items-center gap-2">
         <button
-          class="border-[1.5px] rounded font-semibold px-3.5 py-1 border-black hover:bg-black text-white"
+          *ngIf="!user()"
+          class="text-white font-semibold"
+          (click)="navigate('/login')"
         >
-          Login
+          Login / Register
+        </button>
+        <button
+          *ngIf="user()"
+          class="text-white font-semibold disabled:cursor-not-allowed"
+          (click)="logout()"
+          [disabled]="loading"
+        >
+          Logout
         </button>
       </div>
     </div>

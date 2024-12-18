@@ -25,6 +25,7 @@
     "bootstrap": "^5.3.3",
     "datatables.net": "^2.0.3",
     "datatables.net-bs5": "^2.0.3",
+    "dotenv": "^16.4.7",
     "jquery": "^3.6.0",
     "ngx-quill": "^27.0.0",
     "ngx-toastr": "^19.0.0",

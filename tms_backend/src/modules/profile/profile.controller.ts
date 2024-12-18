@@ -14,7 +14,6 @@ import { CreateProfileDto } from './dto/create-profile.dto';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('profiles')
-@UseGuards(AuthGuard('jwt'))
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
@@ -28,6 +27,7 @@ export class ProfileController {
     return await this.profileService.getProfile(id);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   async createProfile(
     @Body() profileData: CreateProfileDto,
@@ -35,6 +35,7 @@ export class ProfileController {
     return await this.profileService.createProfile(profileData);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Patch('/:id')
   async updateProfile(
     @Param('id') id: string,
@@ -43,6 +44,7 @@ export class ProfileController {
     return await this.profileService.updateProfile(id, profileData);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Delete('/:id')
   async deleteProfile(@Param('id') id: string): Promise<{ data: Profile }> {
     return await this.profileService.deleteProfile(id);

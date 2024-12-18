@@ -28,7 +28,8 @@
               "src/styles.css",
               "node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
               "node_modules/quill/dist/quill.snow.css",
-              "node_modules/quill/dist/quill.bubble.css"
+              "node_modules/quill/dist/quill.bubble.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -55,7 +56,13 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"

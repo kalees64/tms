@@ -13,6 +13,18 @@
   @apply border  bg-transparent text-white  rounded focus:outline-none focus:border-black block w-full p-2.5 placeholder:text-gray-700;
 }
 
+.input-invalid {
+  @apply border  bg-transparent text-white border-red-500 ring-2 ring-red-500 rounded focus:outline-none focus:border-red-500 block w-full p-2.5 placeholder:text-gray-700;
+}
+
+.input-valid {
+  @apply border  bg-transparent text-white border-green-500 ring-2 ring-green-500  rounded focus:outline-none focus:border-green-500 block w-full p-2.5 placeholder:text-gray-700;
+}
+
 .label {
   @apply block mb-2 text-sm font-medium text-black;
+}
+
+.submit-btn {
+  @apply w-full disabled:cursor-not-allowed py-2 text-center border border-black rounded hover:bg-black hover:border-black hover:text-white font-semibold;
 }

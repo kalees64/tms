@@ -91,6 +91,7 @@ export class UserService {
       data: {
         ...newUser,
         profile: profile,
+        password: null,
       },
     };
   }

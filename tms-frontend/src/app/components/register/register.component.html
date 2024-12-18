@@ -8,20 +8,58 @@
       <span class="text-sm ps-1">Your path to resolution begins here</span>
     </div>
 
-    <form class="pt-4 flex flex-col gap-2">
+    <form
+      class="pt-4 flex flex-col gap-2"
+      [formGroup]="registerForm"
+      (submit)="onRegister()"
+    >
       <div>
         <label for="name" class="label">Name</label>
-        <input type="text" name="name" class="input" placeholder="Enter Name" />
+        <input
+          type="text"
+          name="name"
+          class="{{
+            name.invalid && (name.touched || name.dirty)
+              ? 'input-invalid'
+              : name.valid
+              ? 'input-valid'
+              : 'input'
+          }}"
+          placeholder="Enter Name"
+          formControlName="name"
+        />
+
+        @if(name.errors && (name.touched || name.dirty)){
+        @if(name.errors['required']){
+        <span class="text-sm text-red-500">Name is required</span>
+        } @if(name.errors['minlength']){
+        <span class="text-sm text-red-500"
+          >Name must contains atleast
+          {{ name.errors["minlength"].requiredLength }} letters</span
+        >
+        } }
       </div>
       <div class="">
         <label for="email" class="label">Email</label>
         <input
           type="email"
           id="email"
-          class="input"
+          class="{{
+            email.invalid && (email.touched || email.dirty)
+              ? 'input-invalid'
+              : email.valid
+              ? 'input-valid'
+              : 'input'
+          }}"
           placeholder="Enter Email"
-          required
+          formControlName="email"
         />
+        @if(email.errors && (email.touched || email.dirty)){
+        @if(email.errors['required']){
+        <span class="text-sm text-red-500">Email is required</span>
+        } @if(email.errors['email']){
+        <span class="text-sm text-red-500">Enter valid email</span>
+        } }
       </div>
       <div>
         <label for="password" class="label">Password</label>
@@ -29,23 +67,57 @@
           type="password"
           name="password"
           placeholder="Enter Password"
-          class="input"
+          formControlName="password"
+          class="{{
+            password.invalid && (password.touched || password.dirty)
+              ? 'input-invalid'
+              : password.valid
+              ? 'input-valid'
+              : 'input'
+          }}"
         />
+
+        @if(password.errors && (password.touched || password.dirty)){
+        @if(password.errors['required']){
+        <span class="text-sm text-red-500">Password is required</span>
+        }}
       </div>
       <div>
         <label for="profile" class="label">Profile</label>
-        <select name="profile" id="profile" class="input">
+        <select
+          name="profile"
+          id="profile"
+          formControlName="profileId"
+          class="{{
+            profileId.invalid && (profileId.touched || profileId.dirty)
+              ? 'input-invalid'
+              : profileId.valid
+              ? 'input-valid'
+              : 'input'
+          }}"
+        >
           <option class="text-black" [defaultSelected]="true">
             --SELECT--
           </option>
-          <option value="manager" class="text-black">MANAGER</option>
+
+          @for(profile of profiles;track profile.id){
+          <option value="{{ profile.id }}" class="text-black uppercase">
+            {{ profile.profileName.toUpperCase() }}
+          </option>
+          }
         </select>
+
+        @if(profileId.errors && (profileId.touched || profileId.dirty)){
+        @if(profileId.errors['required']){
+        <span class="text-sm text-red-500">Profile is required</span>
+        }}
       </div>
 
       <div class="pt-3">
         <button
           type="submit"
-          class="w-full py-2 text-center border border-black rounded hover:bg-black hover:border-black hover:text-white font-semibold"
+          class="submit-btn"
+          [disabled]="registerForm.invalid || loading"
         >
           SIGN UP
         </button>
