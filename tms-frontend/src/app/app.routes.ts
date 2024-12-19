@@ -4,6 +4,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CreateTicketComponent } from './components/create-ticket/create-ticket.component';
 import { authGuard } from './guards/auth.guard';
+import { ViewTicketComponent } from './components/view-ticket/view-ticket.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,12 @@ export const routes: Routes = [
   {
     path: 'create-ticket',
     component: CreateTicketComponent,
+    canActivate: [authGuard],
+  },
+
+  {
+    path: 'view-ticket/:id',
+    component: ViewTicketComponent,
     canActivate: [authGuard],
   },
   {

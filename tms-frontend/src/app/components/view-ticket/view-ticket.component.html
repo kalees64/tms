@@ -1,0 +1,13 @@
+@if(ticketId && ticket){
+<section class="w-full h-full p-2">
+  <h3 class="h3 cursor-pointer" (click)="goBack()"><-</h3>
+  <h1 class="h2">{{ ticket.title }}</h1>
+  <h2 class="h3">Descrription</h2>
+  <p [innerHTML]="ticket.description">{{ ticket.description }}</p>
+  @if(ticket.image){
+  <h2 class="h3">Image</h2>
+  <img src="{{ ticket.image }}" alt="Image" class="" />
+  }
+</section>
+
+}

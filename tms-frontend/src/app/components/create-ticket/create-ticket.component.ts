@@ -6,18 +6,30 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ImagePreviewPipe } from './image-preview.pipe';
+import { USER } from '../dashboard/dashboard.component';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
+import { CREATE_TICKET, TicketService } from '../../services/ticket.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-ticket',
-  imports: [QuillModule, CommonModule, ImagePreviewPipe],
+  imports: [QuillModule, CommonModule, ImagePreviewPipe, ReactiveFormsModule],
   templateUrl: './create-ticket.component.html',
   styleUrl: './create-ticket.component.css',
 })
 export class CreateTicketComponent implements OnInit {
   addForm!: FormGroup;
+
+  usersIT!: USER[];
 
   imagePreview: string | ArrayBuffer | null = null;
 
@@ -37,7 +49,36 @@ export class CreateTicketComponent implements OnInit {
     ],
   };
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private router: Router,
+    private ticketService: TicketService,
+    private toast: ToastrService
+  ) {}
+
+  async ngOnInit(): Promise<void> {
+    this.addForm = this.fb.group({
+      title: [null, [Validators.required, Validators.minLength(4)]],
+      status: ['OPEN'],
+      description: [null],
+      assignedTo: [null, [Validators.required]],
+    });
+
+    const res = await this.userService.getUsers();
+
+    this.usersIT = res.data.filter(
+      (user: USER) => user.profiles[0].profileName === 'it_team'
+    );
+  }
+
+  get title() {
+    return this.addForm.controls['title'];
+  }
+
+  get assignedTo() {
+    return this.addForm.controls['assignedTo'];
+  }
 
   onUpload(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
@@ -53,14 +94,31 @@ export class CreateTicketComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.addForm = this.fb.group({
-      name: [null, [Validators.required, Validators.minLength(4)]],
-      status: ['PENDING'],
-      description: [null],
-      assigned_to: [null, [Validators.required]],
-      image: [null],
-    });
+  async onCreate() {
+    console.log(this.addForm.value);
+
+    try {
+      const user = await this.userService.getUserFromLocalStorage();
+
+      const newTicket: CREATE_TICKET = {
+        ...this.addForm.value,
+        createdBy: user.id,
+        modifiedBy: user.id,
+        assignedAt: new Date().toISOString(),
+        image: this.imagePreview,
+      };
+
+      console.log(newTicket);
+
+      const res = await this.ticketService.createTicket(newTicket);
+
+      if (res.data) {
+        this.toast.success('Ticket created successfully');
+        this.router.navigateByUrl('/dashboard');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
@@ -69,20 +127,25 @@ export class CreateTicketComponent implements OnInit {
   // Handle file selection
   onFileSelected(event: Event): void {
     const target = event.target as HTMLInputElement;
-    const selectedFile = target.files ? target.files[0] : null;
-    if (selectedFile && selectedFile.type.startsWith('image')) {
-      this.file = selectedFile;
+    if (target.files && target.files[0]) {
+      this.file = target.files[0];
+
+      // Generate preview
+      const reader = new FileReader();
+      reader.onload = () => (this.imagePreview = reader.result);
+      reader.readAsDataURL(this.file);
     }
   }
 
   // Handle drag-and-drop
   onDrop(event: DragEvent): void {
     event.preventDefault();
-    if (event.dataTransfer?.files) {
-      const droppedFile = event.dataTransfer.files[0];
-      if (droppedFile.type.startsWith('image')) {
-        this.file = droppedFile;
-      }
+    if (event.dataTransfer?.files[0]) {
+      this.file = event.dataTransfer.files[0];
+
+      const reader = new FileReader();
+      reader.onload = () => (this.imagePreview = reader.result);
+      reader.readAsDataURL(this.file);
     }
   }
 
@@ -93,15 +156,17 @@ export class CreateTicketComponent implements OnInit {
   // Handle paste event
   @HostListener('window:paste', ['$event'])
   onPaste(event: ClipboardEvent): void {
-    const items = event.clipboardData?.items;
-    if (items) {
-      const imageFiles = Array.from(items)
-        .filter((item) => item.type.startsWith('image'))
-        .map((item) => item.getAsFile())
-        .filter((file) => file) as File[];
+    const items = event.clipboardData?.items || [];
+    for (let item of items) {
+      if (item.type.startsWith('image')) {
+        const file = item.getAsFile();
+        if (file) {
+          this.file = file;
 
-      if (imageFiles.length > 0) {
-        this.file = imageFiles[0]; // Take the first image file, since it's single file input
+          const reader = new FileReader();
+          reader.onload = () => (this.imagePreview = reader.result);
+          reader.readAsDataURL(this.file);
+        }
       }
     }
   }
@@ -109,5 +174,6 @@ export class CreateTicketComponent implements OnInit {
   // Remove the file
   removeFile(): void {
     this.file = null;
+    this.imagePreview = null;
   }
 }

@@ -4,25 +4,64 @@
   </h1>
 
   <div class="pt-4 px-2">
-    <form>
+    <form [formGroup]="addForm" (submit)="onCreate()">
       <div class="grid lg:grid-cols-2 gap-2">
         <div>
           <label for="title" class="label">Title</label>
           <input
             type="text"
             name="title"
-            class="input"
+            class="{{
+              title.invalid && (title.touched || title.dirty)
+                ? 'input-invalid'
+                : title.valid
+                ? 'input-valid'
+                : 'input'
+            }}"
             placeholder="Enter Ticket Title"
+            formControlName="title"
           />
+          @if(title.errors && (title.touched || title.dirty)){
+          @if(title.errors['required']){
+          <span class="text-sm text-red-500">Title is required</span>
+          } @if(title.errors['minlength']){
+          <span class="text-sm text-red-500"
+            >Title must contains atleast
+            {{ title.errors["minlength"].requiredLength }} letters</span
+          >
+          } }
         </div>
         <div>
           <label for="title" class="label">Assigned To</label>
-          <select name="profile" id="profile" class="input">
+          <select
+            name="profile"
+            id="profile"
+            class="{{
+              assignedTo.invalid && (assignedTo.touched || assignedTo.dirty)
+                ? 'input-invalid'
+                : assignedTo.valid
+                ? 'input-valid'
+                : 'input'
+            }}"
+            formControlName="assignedTo"
+          >
             <option class="text-black" [defaultSelected]="true">
               --SELECT--
             </option>
-            <option value="manager" class="text-black">MANAGER</option>
+
+            @for(user of usersIT;track user.id){
+            <option value="{{ user.id }}" class="text-black uppercase">
+              {{ user.name.toUpperCase() }}
+            </option>
+            }
           </select>
+
+          @if(assignedTo.errors && (assignedTo.touched || assignedTo.dirty)){
+          @if(assignedTo.errors['required']){
+          <span class="text-sm text-red-500"
+            >Select one person to assign ticket</span
+          >
+          }}
         </div>
       </div>
 
@@ -35,6 +74,7 @@
             [modules]="editorModules"
             theme="snow"
             customToolbarPosition="bottom"
+            formControlName="description"
           >
           </quill-editor>
         </div>
@@ -85,10 +125,7 @@
       </div>
 
       <div class="pt-2 grid">
-        <button
-          type="submit"
-          class="w-full py-2 text-center border border-black rounded hover:bg-black hover:border-black hover:text-white font-semibold"
-        >
+        <button type="submit" class="submit-btn" [disabled]="addForm.invalid">
           CREATE TICKET
         </button>
       </div>

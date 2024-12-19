@@ -32,8 +32,8 @@ export class Ticket {
   @Column({ type: 'enum', enum: TICKET_STATUS })
   status: string;
 
-  @Column({ type: 'blob', nullable: true, default: null })
-  image: Buffer | null;
+  @Column({ type: 'longtext', nullable: true, default: null })
+  image: string | null;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

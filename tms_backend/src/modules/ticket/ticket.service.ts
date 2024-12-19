@@ -101,7 +101,7 @@ export class TicketService {
     });
 
     if (!user) {
-      throw new BadRequestException();
+      throw new BadRequestException('user not found');
     }
 
     const newTicket = await this.ticketRepo.save(createTicket);

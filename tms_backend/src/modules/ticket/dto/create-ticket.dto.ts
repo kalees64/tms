@@ -15,7 +15,7 @@ export class CreateTicketDto {
   status: TICKET_STATUS;
 
   @IsOptional()
-  image: Buffer;
+  image: string;
 
   @IsOptional()
   assignedAt: Date;

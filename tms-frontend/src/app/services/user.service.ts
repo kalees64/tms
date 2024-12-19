@@ -53,6 +53,18 @@ export class UserService {
     }
   }
 
+  getAuthTokenFromLocalStorage() {
+    const userData = localStorage.getItem('userData');
+
+    if (userData) {
+      const data = JSON.parse(userData);
+
+      const token = data.token;
+
+      return token;
+    }
+  }
+
   async getUserRoleFromLocalStorage() {
     const userData = await localStorage.getItem('userData');
 
@@ -87,5 +99,13 @@ export class UserService {
 
       return user.id;
     }
+  }
+
+  // User service functions
+
+  async getUsers(): Promise<any> {
+    const url = `${this.apiUrl}/users`;
+
+    return await firstValueFrom(this.http.get(url));
   }
 }
