@@ -1,0 +1,77 @@
+<section class="flex-1 bg-white rounded p-2">
+  <div class="flex items-center gap-3 pb-3 border-b border-[#5251f1]">
+    <div class="size-8 rounded-full bg-[#edeef2] grid place-content-center">
+      <fa-icon [icon]="['fas', 'arrow-left']" class="cursor-pointer"></fa-icon>
+    </div>
+    <h1 class="font-bold text-2xl">Create Ticket</h1>
+  </div>
+
+  <div class="pt-4">
+    <form>
+      <div class="grid lg:grid-cols-2 gap-2">
+        <div>
+          <label for="title" class="label">Title</label>
+          <input
+            type="text"
+            name="title"
+            class="input"
+            placeholder="Enter Ticket Title"
+          />
+        </div>
+        <div>
+          <label for="title" class="label">Assigned To</label>
+          <select name="profile" id="profile" class="input">
+            <option class="text-black" [defaultSelected]="true">
+              --SELECT--
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 pt-2 gap-2">
+        <div>
+          <label for="description" class="label">Description</label>
+          <textarea
+            name="description"
+            id="desc"
+            class="h-56 input w-full"
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="image" class="label">Image</label>
+
+          <div
+            class="lg:h-56 border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center space-y-4"
+          >
+            <input #fileInput type="file" accept="image/*" class="hidden" />
+            <button
+              class="bg-[#5251f1] text-white px-4 py-2 rounded hover:bg-blue-600"
+              type="button"
+            >
+              Select Image
+            </button>
+            <p class="text-gray-500 text-sm">
+              or drag and drop an image here or paste an image here
+            </p>
+
+            <!-- Preview section -->
+            <div class="mt-4 relative flex flex-col items-center">
+              <img alt="Preview" class="w-24 h-24 object-cover rounded" />
+              <button
+                class="absolute top-0 right-0 bg-red-500 text-white rounded-full px-2 py-1 text-xs"
+                type="button"
+              >
+                X
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-2 grid">
+        <button type="submit" class="submit-btn">CREATE TICKET</button>
+      </div>
+    </form>
+  </div>
+</section>

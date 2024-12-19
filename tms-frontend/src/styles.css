@@ -10,7 +10,7 @@
 }
 
 .input {
-  @apply border  bg-transparent text-white  rounded focus:outline-none focus:border-black block w-full p-2.5 placeholder:text-gray-700;
+  @apply border  bg-transparent text-white  rounded focus:outline-none focus:border-[#5251f1] block w-full p-2.5 placeholder:text-gray-700;
 }
 
 .input-invalid {
@@ -26,5 +26,11 @@
 }
 
 .submit-btn {
-  @apply w-full disabled:cursor-not-allowed py-2 text-center border border-black rounded hover:bg-black hover:border-black hover:text-white font-semibold;
+  @apply block text-[#01eed0] disabled:cursor-not-allowed py-2 text-center border border-[#01eed0] rounded hover:bg-[#01eed0] hover:border-[#01eed0] hover:text-white font-semibold;
+}
+
+.dash-bg-img {
+  background: url("../public/images/d-bg-1.jpg");
+  background-position: center;
+  background-size: cover;
 }
