@@ -207,7 +207,7 @@
 
 <!-- New UI -->
 
-@if(tickets && tickets.length){
+@defer{ @if(tickets && tickets.length){
 <section class="flex-1 flex flex-col gap-4">
   <article
     class="w-full rounded h-60 dash-bg-img flex items-end max-sm:items-center max-sm:overflow-y-scroll no-scrollbar max-sm:p-0 max-sm:gap-0 gap-4 flex-wrap p-5"
@@ -256,4 +256,6 @@
     <div class="w-64 h-52 bg-white rounded"></div>
   </div> -->
 </section>
+} } @loading {
+<app-loading />
 }

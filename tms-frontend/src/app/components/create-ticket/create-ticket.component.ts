@@ -24,6 +24,7 @@ import {
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-create-ticket',
@@ -33,6 +34,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
     ImagePreviewPipe,
     ReactiveFormsModule,
     FontAwesomeModule,
+    LoadingComponent,
   ],
   templateUrl: './create-ticket.component.html',
   styleUrl: './create-ticket.component.css',

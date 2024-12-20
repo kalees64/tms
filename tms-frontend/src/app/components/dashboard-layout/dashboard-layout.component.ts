@@ -15,10 +15,11 @@ import { TicketService } from '../../services/ticket.service';
 import { USER } from '../dashboard/dashboard.component';
 import { PROFILE } from '../register/register.component';
 import Swal from 'sweetalert2';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-dashboard-layout',
-  imports: [FontAwesomeModule, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [FontAwesomeModule, RouterOutlet, RouterLink, LoadingComponent],
   templateUrl: './dashboard-layout.component.html',
   styleUrl: './dashboard-layout.component.css',
 })

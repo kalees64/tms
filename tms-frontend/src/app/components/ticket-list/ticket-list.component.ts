@@ -10,10 +10,11 @@ import { PROFILE } from '../register/register.component';
 import { Config } from 'datatables.net';
 import { CommonModule } from '@angular/common';
 import { DataTablesModule } from 'angular-datatables';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-ticket-list',
-  imports: [RouterLink, CommonModule, DataTablesModule],
+  imports: [RouterLink, CommonModule, DataTablesModule, LoadingComponent],
   templateUrl: './ticket-list.component.html',
   styleUrl: './ticket-list.component.css',
 })

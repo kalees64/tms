@@ -8,10 +8,11 @@ import {
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-view-ticket',
-  imports: [FontAwesomeModule, CommonModule],
+  imports: [FontAwesomeModule, CommonModule, LoadingComponent],
   templateUrl: './view-ticket.component.html',
   styleUrl: './view-ticket.component.css',
 })

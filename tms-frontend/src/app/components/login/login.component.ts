@@ -13,10 +13,16 @@ import {
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, ReactiveFormsModule, FontAwesomeModule],
+  imports: [
+    RouterLink,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    LoadingComponent,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

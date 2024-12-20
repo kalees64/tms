@@ -144,7 +144,7 @@
 </section> -->
 
 <!-- New UI -->
-
+@defer{
 <section class="w-full flex-1">
   @if(tickets && tickets.length){
   <div class="bg-white rounded-t px-2 py-2 flex items-center justify-between">
@@ -292,3 +292,6 @@
   </div>
   }
 </section>
+} @loading {
+<app-loading />
+}

@@ -1,4 +1,4 @@
-@if(user && userProfile){
+@defer{ @if(user && userProfile){
 <section class="w-full h-screen flex overflow-y-scroll no-scrollbar">
   <!-- Dashboard sidebar -->
 
@@ -239,4 +239,6 @@
   </div>
 </div>
 
+} } @loading {
+<app-loading />
 }

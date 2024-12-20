@@ -14,6 +14,7 @@ import {
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { LoadingComponent } from '../loading/loading.component';
 
 export interface PROFILE {
   id: string;
@@ -22,7 +23,12 @@ export interface PROFILE {
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink, ReactiveFormsModule, FontAwesomeModule],
+  imports: [
+    RouterLink,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    LoadingComponent,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })

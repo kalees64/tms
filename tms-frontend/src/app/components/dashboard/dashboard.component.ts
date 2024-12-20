@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { TicketService } from '../../services/ticket.service';
 import { ToastrService } from 'ngx-toastr';
+import { LoadingComponent } from '../loading/loading.component';
 
 export interface USER {
   id: string;
@@ -44,7 +45,12 @@ export enum PROFILES {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [FontAwesomeModule, DataTablesModule, CommonModule],
+  imports: [
+    FontAwesomeModule,
+    DataTablesModule,
+    CommonModule,
+    LoadingComponent,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
