@@ -10,15 +10,15 @@
 }
 
 .input {
-  @apply border  bg-transparent text-white  rounded focus:outline-none focus:border-[#5251f1] block w-full p-2.5 placeholder:text-gray-700;
+  @apply border  bg-transparent border-[#5251f1] text-black  rounded focus:outline-none focus:border-[#5251f1] block w-full p-2.5 placeholder:text-[#5251f1];
 }
 
 .input-invalid {
-  @apply border  bg-transparent text-white border-red-500 ring-2 ring-red-500 rounded focus:outline-none focus:border-red-500 block w-full p-2.5 placeholder:text-gray-700;
+  @apply border  bg-transparent text-black border-red-500 ring-2 ring-red-500 rounded focus:outline-none focus:border-red-500 block w-full p-2.5 placeholder:text-red-500;
 }
 
 .input-valid {
-  @apply border  bg-transparent text-white border-green-500 ring-2 ring-green-500  rounded focus:outline-none focus:border-green-500 block w-full p-2.5 placeholder:text-gray-700;
+  @apply border  bg-transparent text-black border-green-500 ring-2 ring-green-500  rounded focus:outline-none focus:border-green-500 block w-full p-2.5 placeholder:text-green-500;
 }
 
 .label {
@@ -33,4 +33,16 @@
   background: url("../public/images/d-bg-1.jpg");
   background-position: center;
   background-size: cover;
+}
+
+.btn-p {
+  @apply p-1.5  px-3 border text-[#5251f1] border-[#5251f1] hover:bg-[#5251f1] hover:text-white font-semibold;
+}
+
+.btn-g {
+  @apply p-1.5 px-3 border text-[#01eed0] border-[#01eed0] hover:bg-[#01eed0] hover:text-white font-semibold;
+}
+
+.btn-b {
+  @apply p-1.5 px-3 border border-black hover:bg-black hover:text-white font-semibold;
 }

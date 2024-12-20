@@ -1,4 +1,4 @@
-<section class="w-full h-full flex text-white md:items-center">
+<!-- <section class="w-full h-full flex text-white md:items-center">
   <div class="w-8/12 max-md:hidden max-lg:w-7/12">
     <img src="images/bg-3.png" alt="image" class="w-10/12 mx-auto" />
   </div>
@@ -126,6 +126,179 @@
 
     <div class="pt-3 text-center">
       <p>Already have an account? <a routerLink="/login">Login here</a></p>
+    </div>
+  </div>
+</section> -->
+
+<!-- New UI -->
+
+<section class="w-full h-screen p-5 bg-[#E8EFFF] flex">
+  <div
+    class="w-full flex-1 bg-white rounded-s grid lg:grid-cols-2 shadow rounded-e-2xl"
+  >
+    <div class="px-10 py-2 flex flex-col gap-2 overflow-y-scroll no-scrollbar">
+      <div
+        class="flex items-center gap-2 justify-center border-b-2 border-black pb-2"
+      >
+        <div class="size-10 rounded-full grid place-content-center">
+          <fa-icon [icon]="['fas', 'ticket']" size="2xl" class=""></fa-icon>
+        </div>
+        <h1 class="text-3xl font-bold">TMS</h1>
+      </div>
+
+      <div>
+        <h1 class="text-xl font-bold uppercase text-center">
+          Create An Account
+        </h1>
+        <span class="pt-2 text-sm text-center block"
+          >Simplify your workflow and boost your productivity with TMS. Get
+          started for free</span
+        >
+      </div>
+
+      <div>
+        <form
+          class="pt-4 flex flex-col gap-2"
+          [formGroup]="registerForm"
+          (submit)="onRegister()"
+        >
+          <div>
+            <label for="name" class="label"
+              >Name<span class="text-red-500">&nbsp;*</span></label
+            >
+
+            <input
+              type="text"
+              name="name"
+              class="{{
+                name.invalid && (name.touched || name.dirty)
+                  ? 'input-invalid'
+                  : name.valid
+                  ? 'input-valid'
+                  : 'input'
+              }}"
+              placeholder="Enter Name"
+              formControlName="name"
+            />
+
+            @if(name.errors && (name.touched || name.dirty)){
+            @if(name.errors['required']){
+            <span class="text-sm text-red-500">Name is required</span>
+            } @if(name.errors['minlength']){
+            <span class="text-sm text-red-500"
+              >Name must contains atleast
+              {{ name.errors["minlength"].requiredLength }} letters</span
+            >
+            } }
+          </div>
+          <div class="">
+            <label for="email" class="label"
+              >Email<span class="text-red-500">&nbsp;*</span></label
+            >
+            <input
+              type="email"
+              id="email"
+              class="{{
+                email.invalid && (email.touched || email.dirty)
+                  ? 'input-invalid'
+                  : email.valid
+                  ? 'input-valid'
+                  : 'input'
+              }}"
+              placeholder="Enter Email"
+              formControlName="email"
+            />
+            @if(email.errors && (email.touched || email.dirty)){
+            @if(email.errors['required']){
+            <span class="text-sm text-red-500">Email is required</span>
+            } @if(email.errors['email']){
+            <span class="text-sm text-red-500">Enter valid email</span>
+            } }
+          </div>
+          <div>
+            <label for="password" class="label"
+              >Password<span class="text-red-500">&nbsp;*</span></label
+            >
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter Password"
+              formControlName="password"
+              class="{{
+                password.invalid && (password.touched || password.dirty)
+                  ? 'input-invalid'
+                  : password.valid
+                  ? 'input-valid'
+                  : 'input'
+              }}"
+            />
+
+            @if(password.errors && (password.touched || password.dirty)){
+            @if(password.errors['required']){
+            <span class="text-sm text-red-500">Password is required</span>
+            }}
+          </div>
+          <div>
+            <label for="profile" class="label"
+              >Profile<span class="text-red-500">&nbsp;*</span></label
+            >
+            <select
+              name="profile"
+              id="profile"
+              formControlName="profileId"
+              class="{{
+                profileId.invalid && (profileId.touched || profileId.dirty)
+                  ? 'input-invalid'
+                  : profileId.valid
+                  ? 'input-valid'
+                  : 'input'
+              }}"
+            >
+              <option class="text-black" [defaultSelected]="true">
+                --SELECT--
+              </option>
+
+              @for(profile of profiles;track profile.id){
+              <option value="{{ profile.id }}" class="text-black uppercase">
+                {{ profile.profileName.toUpperCase() }}
+              </option>
+              }
+            </select>
+
+            @if(profileId.errors && (profileId.touched || profileId.dirty)){
+            @if(profileId.errors['required']){
+            <span class="text-sm text-red-500">Profile is required</span>
+            }}
+          </div>
+
+          <div class="pt-3">
+            <button
+              type="submit"
+              class="submit-btn w-full"
+              [disabled]="registerForm.invalid || loading"
+            >
+              SIGN UP
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="pt-3 text-center">
+        <p>
+          Already have an account?
+          <a routerLink="/login" class="text-[#5251f1]">Login here </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-[#5251F180] rounded-s rounded-e-2xl flex p-10 max-lg:hidden">
+      <div class="bg-white w-full rounded-e rounded-s-2xl">
+        <img
+          src="images/signup-bg.png"
+          alt="illustrator"
+          class="w-full h-full"
+        />
+      </div>
     </div>
   </div>
 </section>

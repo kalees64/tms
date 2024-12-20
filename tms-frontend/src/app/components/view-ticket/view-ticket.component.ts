@@ -2,11 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TICKET } from '../dashboard/dashboard.component';
 import { TicketService } from '../../services/ticket.service';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
+import {
+  FaIconLibrary,
+  FontAwesomeModule,
+} from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-view-ticket',
-  imports: [],
+  imports: [FontAwesomeModule, CommonModule],
   templateUrl: './view-ticket.component.html',
   styleUrl: './view-ticket.component.css',
 })
@@ -18,8 +23,11 @@ export class ViewTicketComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private ticketService: TicketService
-  ) {}
+    private ticketService: TicketService,
+    icons: FaIconLibrary
+  ) {
+    icons.addIconPacks(fas);
+  }
 
   async ngOnInit(): Promise<void> {
     this.ticketId = this.route.snapshot.params['id'];

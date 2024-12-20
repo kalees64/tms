@@ -77,6 +77,18 @@ export class UserService {
     }
   }
 
+  getUserRoleAuthFromLocalStorage() {
+    const userData = localStorage.getItem('userData');
+
+    if (userData) {
+      const data = JSON.parse(userData);
+
+      const profile = data.user.profiles[0];
+
+      return profile;
+    }
+  }
+
   async getUserFromLocalStorage() {
     const userData = await localStorage.getItem('userData');
 

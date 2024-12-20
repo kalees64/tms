@@ -1,4 +1,4 @@
-<section class="w-full h-full flex text-white md:items-center">
+<!-- <section class="w-full h-full flex text-white md:items-center">
   <div class="w-8/12 max-md:hidden max-lg:w-7/12">
     <img src="images/bg-2.png" alt="image" class="w-10/12 mx-auto" />
   </div>
@@ -71,6 +71,112 @@
 
     <div class="pt-3 text-center">
       <p>Don't have an account? <a routerLink="/register">Sign up here </a></p>
+    </div>
+  </div>
+</section> -->
+
+<!-- New UI -->
+
+<section class="w-full h-screen p-5 bg-[#E8EFFF] flex">
+  <div class="w-full flex-1 bg-white rounded grid lg:grid-cols-2 shadow">
+    <div class="bg-[#5251F180] rounded-s rounded-e-2xl flex p-10 max-lg:hidden">
+      <div class="bg-white w-full rounded-e rounded-s-2xl">
+        <img
+          src="images/login-bg.png"
+          alt="illustrator"
+          class="w-full h-full"
+        />
+      </div>
+    </div>
+
+    <div class="p-10 flex flex-col gap-2">
+      <div
+        class="flex items-center gap-2 justify-center border-b-2 border-black pb-2"
+      >
+        <div class="size-10 rounded-full grid place-content-center">
+          <fa-icon [icon]="['fas', 'ticket']" size="2xl" class=""></fa-icon>
+        </div>
+        <h1 class="text-3xl font-bold">TMS</h1>
+      </div>
+
+      <div>
+        <h1 class="text-xl font-bold uppercase text-center">Welcome Back!</h1>
+        <span class="pt-2 text-sm text-center block"
+          >Simplify your workflow and boost your productivity</span
+        >
+      </div>
+
+      <div>
+        <form
+          class="pt-4 flex flex-col gap-2"
+          [formGroup]="loginForm"
+          (submit)="onLogin()"
+        >
+          <div class="">
+            <label for="email" class="label"
+              >Email<span class="text-red-500">&nbsp;*</span></label
+            >
+            <input
+              type="email"
+              id="email"
+              class="{{
+                email.invalid && (email.touched || email.dirty)
+                  ? 'input-invalid'
+                  : email.valid
+                  ? 'input-valid'
+                  : 'input'
+              }}"
+              placeholder="Enter Email"
+              formControlName="email"
+            />
+            @if(email.errors && (email.touched || email.dirty)){
+            @if(email.errors['required']){
+            <span class="text-sm text-red-500">Email is required</span>
+            } @if(email.errors['email']){
+            <span class="text-sm text-red-500">Enter valid email</span>
+            } }
+          </div>
+          <div>
+            <label for="password" class="label"
+              >Password<span class="text-red-500">&nbsp;*</span></label
+            >
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter Password"
+              class="{{
+                password.invalid && (password.touched || password.dirty)
+                  ? 'input-invalid'
+                  : password.valid
+                  ? 'input-valid'
+                  : 'input'
+              }}"
+              formControlName="password"
+            />
+            @if(password.errors && (password.touched || password.dirty)){
+            @if(password.errors['required']){
+            <span class="text-sm text-red-500">Password is required</span>
+            }}
+          </div>
+
+          <div class="pt-3">
+            <button
+              type="submit"
+              class="submit-btn w-full"
+              [disabled]="loginForm.invalid || loading"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="pt-3 text-center">
+        <p>
+          Don't have an account?
+          <a routerLink="/register" class="text-[#5251f1]">Sign up here </a>
+        </p>
+      </div>
     </div>
   </div>
 </section>

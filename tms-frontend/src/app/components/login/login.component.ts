@@ -8,10 +8,15 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import {
+  FaIconLibrary,
+  FontAwesomeModule,
+} from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, FontAwesomeModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -24,8 +29,11 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private toast: ToastrService,
-    private router: Router
-  ) {}
+    private router: Router,
+    icons: FaIconLibrary
+  ) {
+    icons.addIconPacks(fas);
+  }
 
   async onLogin() {
     console.log(this.loginForm.value);

@@ -12,17 +12,28 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { ImagePreviewPipe } from './image-preview.pipe';
 import { USER } from '../dashboard/dashboard.component';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { CREATE_TICKET, TicketService } from '../../services/ticket.service';
 import { ToastrService } from 'ngx-toastr';
+import {
+  FaIconLibrary,
+  FontAwesomeModule,
+} from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-create-ticket',
-  imports: [QuillModule, CommonModule, ImagePreviewPipe, ReactiveFormsModule],
+  imports: [
+    QuillModule,
+    CommonModule,
+    ImagePreviewPipe,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+  ],
   templateUrl: './create-ticket.component.html',
   styleUrl: './create-ticket.component.css',
 })
@@ -54,8 +65,12 @@ export class CreateTicketComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private ticketService: TicketService,
-    private toast: ToastrService
-  ) {}
+    private toast: ToastrService,
+    icons: FaIconLibrary,
+    private location: Location
+  ) {
+    icons.addIconPacks(fas);
+  }
 
   async ngOnInit(): Promise<void> {
     this.addForm = this.fb.group({
@@ -175,5 +190,9 @@ export class CreateTicketComponent implements OnInit {
   removeFile(): void {
     this.file = null;
     this.imagePreview = null;
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

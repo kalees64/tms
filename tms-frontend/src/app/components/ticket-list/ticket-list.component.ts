@@ -1,54 +1,23 @@
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import {
-  FaIconLibrary,
-  FontAwesomeModule,
-} from '@fortawesome/angular-fontawesome';
 import { Component, OnInit } from '@angular/core';
-import { Config } from 'datatables.net';
-import { DataTablesModule } from 'angular-datatables';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { UserService } from '../../services/user.service';
-import { PROFILE } from '../register/register.component';
-import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { TicketService } from '../../services/ticket.service';
 import { ToastrService } from 'ngx-toastr';
-
-export interface USER {
-  id: string;
-  name: string;
-  email: string;
-  profiles: PROFILE[];
-  createdAt: string;
-  modifiedAt: string;
-}
-
-export interface TICKET {
-  id: string;
-  title: string;
-  description?: string | null;
-  image?: string | null;
-  createdAt: string;
-  modifiedAt: string;
-  assignedAt?: string | null;
-  status: string;
-  createdBy: { id: string; name: string; email: string };
-  modifiedBy: { id: string; name: string; email: string };
-  assignedTo: { id: string; name: string; email: string };
-}
-
-export enum PROFILES {
-  STAKEHOLDER = 'stakeholder',
-  MANAGER = 'manager',
-  IT_TEAM = 'it_team',
-}
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { TICKET, USER } from '../dashboard/dashboard.component';
+import { PROFILE } from '../register/register.component';
+import { Config } from 'datatables.net';
+import { CommonModule } from '@angular/common';
+import { DataTablesModule } from 'angular-datatables';
 
 @Component({
-  selector: 'app-dashboard',
-  imports: [FontAwesomeModule, DataTablesModule, CommonModule],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css',
+  selector: 'app-ticket-list',
+  imports: [RouterLink, CommonModule, DataTablesModule],
+  templateUrl: './ticket-list.component.html',
+  styleUrl: './ticket-list.component.css',
 })
-export class DashboardComponent implements OnInit {
+export class TicketListComponent implements OnInit {
   constructor(
     icons: FaIconLibrary,
     private userService: UserService,
@@ -70,8 +39,6 @@ export class DashboardComponent implements OnInit {
   pendingTickets!: number;
 
   inProgressTickets!: number;
-
-  fixedTickets!: number;
 
   solvedTickets!: number;
 
@@ -120,10 +87,6 @@ export class DashboardComponent implements OnInit {
         (ticket: TICKET) => ticket.status === 'in_progress'
       ).length;
 
-      this.fixedTickets = this.tickets.filter(
-        (ticket: TICKET) => ticket.status === 'fixed'
-      ).length;
-
       this.solvedTickets = this.tickets.filter(
         (ticket: TICKET) => ticket.status === 'closed'
       ).length;
@@ -141,8 +104,7 @@ export class DashboardComponent implements OnInit {
       ).length;
 
       this.solvedTickets = this.tickets.filter(
-        (ticket: TICKET) =>
-          ticket.status === 'fixed' || ticket.status === 'closed'
+        (ticket: TICKET) => ticket.status === 'fixed'
       ).length;
     }
   }

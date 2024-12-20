@@ -1,4 +1,4 @@
-@if(user){
+<!-- @if(user){
 <section class="w-full lg:h-full flex flex-col gap-2">
   <h1 class="text-3xl font-bold uppercase px-2 text-white">
     WELCOME {{ user.name }}!
@@ -202,5 +202,58 @@
       </div>
     </div>
   </div>
+</section>
+} -->
+
+<!-- New UI -->
+
+@if(tickets && tickets.length){
+<section class="flex-1 flex flex-col gap-4">
+  <article
+    class="w-full rounded h-60 dash-bg-img flex items-end max-sm:items-center max-sm:overflow-y-scroll no-scrollbar max-sm:p-0 max-sm:gap-0 gap-4 flex-wrap p-5"
+  >
+    <div
+      class="w-40 rounded text-white bg-black/30 hover:bg-black/60 p-3 max-sm:w-full"
+    >
+      <h1 class="text-3xl font-bold">{{ tickets.length }}</h1>
+      <p class="text-sm font-bold pt-2">Total Tickets</p>
+    </div>
+
+    <div
+      class="w-40 rounded text-white bg-black/30 hover:bg-black/60 p-3 max-sm:w-full"
+    >
+      <h1 class="text-3xl font-bold">{{ pendingTickets }}</h1>
+      <p class="text-sm font-bold pt-2">Pending Tickets</p>
+    </div>
+
+    @if(userProfile.profileName !== 'it_team'){
+    <div
+      class="w-40 rounded text-white bg-black/30 hover:bg-black/60 p-3 max-sm:w-full"
+    >
+      <h1 class="text-3xl font-bold">{{ inProgressTickets }}</h1>
+      <p class="text-sm font-bold pt-2">In Progress Tickets</p>
+    </div>
+    } @if(userProfile.profileName === 'manager'){
+    <div
+      class="w-40 rounded text-white bg-black/30 hover:bg-black/60 p-3 max-sm:w-full"
+    >
+      <h1 class="text-3xl font-bold">{{ fixedTickets }}</h1>
+      <p class="text-sm font-bold pt-2">Fixed Tickets</p>
+    </div>
+    }
+
+    <div
+      class="w-40 rounded text-white bg-black/30 hover:bg-black/60 p-3 max-sm:w-full"
+    >
+      <h1 class="text-3xl font-bold">{{ solvedTickets }}</h1>
+      <p class="text-sm font-bold pt-2">Solved Tickets</p>
+    </div>
+  </article>
+  <!-- <div class="flex items-center gap-4 max-lg:flex-wrap max-lg:justify-center">
+    <div class="w-64 h-52 bg-white rounded"></div>
+    <div class="w-64 h-52 bg-white rounded"></div>
+    <div class="w-64 h-52 bg-white rounded"></div>
+    <div class="w-64 h-52 bg-white rounded"></div>
+  </div> -->
 </section>
 }

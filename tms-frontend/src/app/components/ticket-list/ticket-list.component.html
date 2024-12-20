@@ -1,0 +1,294 @@
+<!-- <section>
+  @if(tickets && tickets.length){
+  <div
+    class="w-full bg-white text-black px-2 py-1 pt-2 rounded-t-lg flex items-center justify-between"
+  >
+    <h2 class="font-bold text-xl text-black">Tickets({{ tickets.length }})</h2>
+    <div class="pe-2.5">
+      <fa-icon
+        [icon]="['fas', 'plus']"
+        class="cursor-pointer"
+        title="Create Ticket"
+        (click)="navigateToCreateTicketPage()"
+      ></fa-icon>
+    </div>
+  </div>
+  <div class="">
+    <table class="table table-hover" datatable [dtOptions]="dtOptions">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Issue</th>
+          <th>Description</th>
+          <th>Status</th>
+          @if(userProfile.profileName !== 'stakeholder'){
+          <th>Created By</th>
+          }
+          <th>Assigned To</th>
+          @if(userProfile.profileName !== 'stakeholder'){
+          <th>Action</th>
+          } @if(userProfile.profileName === 'stakeholder'){
+          <th>Result</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for(ticket of tickets;track ticket.id;let i = $index;){
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>
+            <a routerLink="/view-ticket/{{ ticket.id }}">{{ ticket.title }}</a>
+          </td>
+          <td>
+            @if(ticket.description){
+            <span [innerHTML]="ticket.description">
+              {{ ticket.description.length }}
+            </span>
+            }@else {
+            <span>-</span>
+            }
+          </td>
+          <td class="uppercase">{{ ticket.status }}</td>
+          @if(userProfile.profileName !== 'stakeholder'){
+          <td>{{ ticket.createdBy.name }}</td>
+
+          }
+          <td>{{ ticket.assignedTo.name }}</td>
+          @if(userProfile.profileName !== 'stakeholder'){
+          <td>
+            <div class="flex gap-2 flex-wrap">
+              @if(userProfile.profileName === 'manager'){ @if(ticket.status ===
+              'open' ){
+              <button
+                class="btn-p"
+                (click)="approveTicket(ticket.id, user.id)"
+              >
+                Approve
+              </button>
+              <button
+                class="btn-p"
+                (click)="rejectTicket(ticket.id, user.id)"
+              >
+                Reject
+              </button>
+              }@if(ticket.status === 'in_progress'){
+              <span>WORKING ON IT</span>
+              } @if(ticket.status === 'fixed'){
+              <button
+                class="p-2 px-3 border border-black hover:bg-black hover:text-white font-semibold"
+                (click)="approveTicket(ticket.id, user.id)"
+              >
+                Reassign
+              </button>
+              <button
+                class="p-2 px-3 border border-black hover:bg-black hover:text-white font-semibold"
+                (click)="closeTicket(ticket.id, user.id)"
+              >
+                Close
+              </button>
+              } } @if(userProfile.profileName === 'it_team'){ @if(ticket.status
+              === 'in_progress'){
+              <button
+                class="p-2 px-3 border border-black hover:bg-black hover:text-white font-semibold"
+                (click)="fixTicket(ticket.id, user.id)"
+              >
+                Fixed
+              </button>
+              } @if(ticket.status === 'fixed'){
+              <span>Waiting for approval</span>
+              } } @if(ticket.status === 'closed'){
+              <span>COMPLETED</span>
+              } @if(ticket.status === 'cancelled'){
+              <span>CANCELLED</span>
+              }
+            </div>
+          </td>
+          } @if(userProfile.profileName === 'stakeholder'){
+          <td>
+            {{
+              ticket.status === "open"
+                ? "PENDING"
+                : ticket.status === "in_progress"
+                ? "WORKING ON IT"
+                : ticket.status === "closed"
+                ? "SOLVED"
+                : ticket.status === "cancelled"
+                ? "CANCELLED"
+                : ticket.status === "fixed"
+                ? "WORKING"
+                : ""
+            }}
+          </td>
+          }
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  } @else {
+  <div class="text-center">
+    <h2 class="text-center">No Tickets Available</h2>
+    @if(userProfile.profileName === 'stakeholder'){
+    <div class="pt-2">
+      <button
+        type="button"
+        class="px-2 py-1 bg-green-500 rounded"
+        (click)="navigateToCreateTicketPage()"
+      >
+        Create Ticket
+      </button>
+    </div>
+    }
+  </div>
+  }
+</section> -->
+
+<!-- New UI -->
+
+<section class="w-full flex-1">
+  @if(tickets && tickets.length){
+  <div class="bg-white rounded-t px-2 py-2 flex items-center justify-between">
+    <h1 class="font-bold text-2xl">Tickets({{ tickets.length }})</h1>
+    @if(userProfile.profileName === 'stakeholder'){
+    <div>
+      <button
+        type="button"
+        class="block p-2 rounded bg-[#01eed0] hover:bg-[#01eeae] font-semibold text-white"
+        (click)="navigateToCreateTicketPage()"
+      >
+        Create Ticket
+      </button>
+    </div>
+    }
+  </div>
+
+  <div class="bg-white rounded-b p-2 overflow-x-scroll no-scrollbar">
+    <table class="table table-hover" datatable [dtOptions]="dtOptions">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Issue</th>
+          <th>Description</th>
+          <th>Status</th>
+          @if(userProfile.profileName !== 'stakeholder'){
+          <th>Created By</th>
+          }
+          <th>Assigned To</th>
+          @if(userProfile.profileName !== 'stakeholder'){
+          <th>Action</th>
+          } @if(userProfile.profileName === 'stakeholder'){
+          <th>Result</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for(ticket of tickets;track ticket.id;let i = $index;){
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>
+            <a routerLink="/view-ticket/{{ ticket.id }}">{{ ticket.title }}</a>
+          </td>
+          <td>
+            @if(ticket.description){
+            <span [innerHTML]="ticket.description">
+              {{ ticket.description.length }}
+            </span>
+            }@else {
+            <span>-</span>
+            }
+          </td>
+          <td
+            class="uppercase {{
+              ticket.status === 'open'
+                ? 'text-warning'
+                : ticket.status === 'in_progress'
+                ? 'text-info'
+                : ticket.status === 'fixed'
+                ? 'text-primary'
+                : ticket.status === 'cancelled'
+                ? 'text-danger'
+                : ticket.status === 'closed'
+                ? 'text-success'
+                : ''
+            }}"
+          >
+            {{ ticket.status }}
+          </td>
+          @if(userProfile.profileName !== 'stakeholder'){
+          <td>{{ ticket.createdBy.name }}</td>
+
+          }
+          <td>{{ ticket.assignedTo.name }}</td>
+          @if(userProfile.profileName !== 'stakeholder'){
+          <td>
+            <div class="flex gap-2 flex-wrap">
+              @if(userProfile.profileName === 'manager'){ @if(ticket.status ===
+              'open' ){
+              <button class="btn-g" (click)="approveTicket(ticket.id, user.id)">
+                Approve
+              </button>
+              <button class="btn-p" (click)="rejectTicket(ticket.id, user.id)">
+                Reject
+              </button>
+              }@if(ticket.status === 'in_progress'){
+              <span class="text-primary">WORKING ON IT</span>
+              } @if(ticket.status === 'fixed'){
+              <button class="btn-p" (click)="approveTicket(ticket.id, user.id)">
+                Reassign
+              </button>
+              <button class="btn-b" (click)="closeTicket(ticket.id, user.id)">
+                Close
+              </button>
+              } } @if(userProfile.profileName === 'it_team'){ @if(ticket.status
+              === 'in_progress'){
+              <button class="btn-g" (click)="fixTicket(ticket.id, user.id)">
+                Fixed
+              </button>
+              } @if(ticket.status === 'fixed'){
+              <span class="text-info">Waiting for approval</span>
+              } } @if(ticket.status === 'closed'){
+              <span class="text-success">COMPLETED</span>
+              } @if(ticket.status === 'cancelled'){
+              <span class="text-danger">CANCELLED</span>
+              }
+            </div>
+          </td>
+          } @if(userProfile.profileName === 'stakeholder'){
+          <td>
+            {{
+              ticket.status === "open"
+                ? "PENDING"
+                : ticket.status === "in_progress"
+                ? "WORKING ON IT"
+                : ticket.status === "closed"
+                ? "SOLVED"
+                : ticket.status === "cancelled"
+                ? "CANCELLED"
+                : ticket.status === "fixed"
+                ? "WORKING"
+                : ""
+            }}
+          </td>
+          }
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  } @else {
+  <div class="text-center">
+    <h2 class="text-center">No Tickets Available</h2>
+    @if(userProfile.profileName === 'stakeholder'){
+    <div class="pt-2">
+      <button
+        type="button"
+        class="px-2 py-1 bg-green-500 rounded"
+        (click)="navigateToCreateTicketPage()"
+      >
+        Create Ticket
+      </button>
+    </div>
+    }
+  </div>
+  }
+</section>

@@ -9,6 +9,11 @@ import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from '../../services/profile.service';
 import { UserService } from '../../services/user.service';
+import {
+  FaIconLibrary,
+  FontAwesomeModule,
+} from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 export interface PROFILE {
   id: string;
@@ -17,7 +22,7 @@ export interface PROFILE {
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, FontAwesomeModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -33,8 +38,11 @@ export class RegisterComponent implements OnInit {
     private toast: ToastrService,
     private router: Router,
     private profileService: ProfileService,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    icons: FaIconLibrary
+  ) {
+    icons.addIconPacks(fas);
+  }
 
   async onRegister() {
     console.log(this.registerForm.value);

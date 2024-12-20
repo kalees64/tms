@@ -1,9 +1,152 @@
-<section class="px-2">
+<!-- <section class="px-2">
   <h1 class="text-3xl font-bold uppercase px-2 text-white">
     Ticket by ticket, building better systems
   </h1>
 
   <div class="pt-4 px-2">
+    <form [formGroup]="addForm" (submit)="onCreate()">
+      <div class="grid lg:grid-cols-2 gap-2">
+        <div>
+          <label for="title" class="label">Title</label>
+          <input
+            type="text"
+            name="title"
+            class="{{
+              title.invalid && (title.touched || title.dirty)
+                ? 'input-invalid'
+                : title.valid
+                ? 'input-valid'
+                : 'input'
+            }}"
+            placeholder="Enter Ticket Title"
+            formControlName="title"
+          />
+          @if(title.errors && (title.touched || title.dirty)){
+          @if(title.errors['required']){
+          <span class="text-sm text-red-500">Title is required</span>
+          } @if(title.errors['minlength']){
+          <span class="text-sm text-red-500"
+            >Title must contains atleast
+            {{ title.errors["minlength"].requiredLength }} letters</span
+          >
+          } }
+        </div>
+        <div>
+          <label for="title" class="label">Assigned To</label>
+          <select
+            name="profile"
+            id="profile"
+            class="{{
+              assignedTo.invalid && (assignedTo.touched || assignedTo.dirty)
+                ? 'input-invalid'
+                : assignedTo.valid
+                ? 'input-valid'
+                : 'input'
+            }}"
+            formControlName="assignedTo"
+          >
+            <option class="text-black" [defaultSelected]="true">
+              --SELECT--
+            </option>
+
+            @for(user of usersIT;track user.id){
+            <option value="{{ user.id }}" class="text-black uppercase">
+              {{ user.name.toUpperCase() }}
+            </option>
+            }
+          </select>
+
+          @if(assignedTo.errors && (assignedTo.touched || assignedTo.dirty)){
+          @if(assignedTo.errors['required']){
+          <span class="text-sm text-red-500"
+            >Select one person to assign ticket</span
+          >
+          }}
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 pt-2 gap-2">
+        <div>
+          <label for="description" class="label">Description</label>
+          <quill-editor
+            class="h-40 w-full"
+            placeholder="Enter the description..."
+            [modules]="editorModules"
+            theme="snow"
+            customToolbarPosition="bottom"
+            formControlName="description"
+          >
+          </quill-editor>
+        </div>
+
+        <div>
+          <label for="image" class="label">Image</label>
+
+          <div
+            class="lg:h-56 border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center space-y-4"
+            (drop)="onDrop($event)"
+            (dragover)="onDragOver($event)"
+          >
+            <input
+              #fileInput
+              type="file"
+              accept="image/*"
+              class="hidden"
+              (change)="onFileSelected($event)"
+            />
+            <button
+              class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              (click)="fileInput.click()"
+              type="button"
+            >
+              Select Image
+            </button>
+            <p class="text-gray-500 text-sm">
+              or drag and drop an image here or paste an image here
+            </p>
+
+            <div *ngIf="file" class="mt-4 relative flex flex-col items-center">
+              <img
+                [src]="file | imagePreview"
+                alt="Preview"
+                class="w-24 h-24 object-cover rounded"
+              />
+              <button
+                class="absolute top-0 right-0 bg-red-500 text-white rounded-full px-2 py-1 text-xs"
+                (click)="removeFile()"
+                type="button"
+              >
+                X
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-2 grid">
+        <button type="submit" class="submit-btn" [disabled]="addForm.invalid">
+          CREATE TICKET
+        </button>
+      </div>
+    </form>
+  </div>
+</section> -->
+
+<!-- New UI -->
+
+<section class="flex-1 bg-white rounded p-2">
+  <div class="flex items-center gap-3 pb-3 border-b border-[#5251f1]">
+    <div class="size-8 rounded-full bg-[#edeef2] grid place-content-center">
+      <fa-icon
+        [icon]="['fas', 'arrow-left']"
+        class="cursor-pointer"
+        (click)="goBack()"
+      ></fa-icon>
+    </div>
+    <h1 class="font-bold text-2xl">Create Ticket</h1>
+  </div>
+
+  <div class="pt-4">
     <form [formGroup]="addForm" (submit)="onCreate()">
       <div class="grid lg:grid-cols-2 gap-2">
         <div>

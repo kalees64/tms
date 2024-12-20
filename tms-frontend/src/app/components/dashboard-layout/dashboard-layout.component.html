@@ -1,3 +1,4 @@
+@if(user && userProfile){
 <section class="w-full h-screen flex overflow-y-scroll no-scrollbar">
   <!-- Dashboard sidebar -->
 
@@ -19,6 +20,17 @@
       <!-- Nav links -->
       <nav class="text-center">
         <a
+          routerLink="/dashboard"
+          class="block p-2 rounded cursor-pointer font-semibold text-black/70 hover:bg-[#f3f7fa] hover:text-[#5251f1] active:bg-[#f3f7fa] active:text-[#5251f1]"
+        >
+          <span class="flex items-center gap-3 px-2">
+            <i class="bi bi-columns-gap"></i>
+            <span>Dashboard</span>
+          </span>
+        </a>
+        @if(userProfile.profileName === 'stakeholder'){
+        <a
+          routerLink="/create-ticket"
           class="block p-2 rounded cursor-pointer font-semibold text-black/70 hover:bg-[#f3f7fa] hover:text-[#5251f1]"
         >
           <span class="flex items-center gap-3 px-2">
@@ -26,7 +38,9 @@
             <span>Create Ticket</span>
           </span>
         </a>
+        }
         <a
+          routerLink="/tickets"
           class="block p-2 rounded cursor-pointer font-semibold text-black/70 hover:bg-[#f3f7fa] hover:text-[#5251f1]"
         >
           <span class="flex items-center gap-3 px-2">
@@ -45,17 +59,21 @@
             <fa-icon [icon]="['fas', 'user']" class="cursor-pointer"></fa-icon>
           </div>
           <div>
-            <span class="block text-sm font-bold text-[#5251f1]">USER</span>
-            <span class="block text-[0.7rem]">PROFILE</span>
+            <span class="block text-sm font-bold text-[#5251f1]">{{
+              user.name
+            }}</span>
+            <span class="block text-[0.7rem] uppercase">{{
+              userProfile.profileName
+            }}</span>
           </div>
         </div>
 
         <div class="flex item-center justify-between pt-6">
-          <a class="flex gap-2 items-center">
+          <a class="flex gap-2 items-center" (click)="navigate('/profile')">
             <i class="bi bi-person-circle"></i>
             <span class="text-[12px] font-semibold block">Profile</span>
           </a>
-          <a class="flex gap-2 items-center">
+          <a class="flex gap-2 items-center" (click)="logout()">
             <fa-icon
               [icon]="['fas', 'right-from-bracket']"
               class="cursor-pointer"
@@ -73,7 +91,7 @@
     <!-- Dashboard Header Section -->
 
     <nav
-      class="px-12 py-3 bg-white flex justify-between items-center max-sm:px-6"
+      class="px-8 py-3 bg-white flex justify-between items-center max-sm:px-6"
     >
       <header class="text-center lg:hidden">
         <div class="text-center flex items-center gap-2.5">
@@ -87,17 +105,22 @@
       <h3 class="font-bold text-2xl max-lg:hidden">Dashboard</h3>
       <div class="flex items-center gap-2.5">
         <div class="flex items-center gap-2.5">
-          <span class="text-sm font-bold">USER</span>
+          <span class="text-sm font-bold">{{ user.name }}</span>
           <div
             class="size-8 rounded-full bg-[#edeef2] grid place-content-center"
           >
-            <fa-icon [icon]="['fas', 'user']" class="cursor-pointer"></fa-icon>
+            <fa-icon
+              [icon]="['fas', 'user']"
+              class="cursor-pointer"
+              (click)="navigate('/profile')"
+            ></fa-icon>
           </div>
         </div>
         <div class="size-8 rounded-full bg-[#edeef2] grid place-content-center">
           <fa-icon
             [icon]="['fas', 'right-from-bracket']"
             class="cursor-pointer"
+            (click)="logout()"
           ></fa-icon>
         </div>
         <div
@@ -115,7 +138,10 @@
     </nav>
 
     <div class="flex-1 flex p-4">
-      <!-- <div class="flex-1"></div> router outlet -->
+      <!-- <section class="flex-1 h-full bg-white rounded p-2"></section>  router outlet -->
+      <section class="w-full flex-1">
+        <router-outlet></router-outlet>
+      </section>
     </div>
   </div>
 </section>
@@ -147,6 +173,17 @@
       <!-- Nav links -->
       <nav class="text-center">
         <a
+          routerLink="/dashboard"
+          class="block p-2 rounded cursor-pointer font-semibold text-black/70 hover:bg-[#f3f7fa] hover:text-[#5251f1]"
+        >
+          <span class="flex items-center gap-3 px-2">
+            <i class="bi bi-columns-gap"></i>
+            <span>Dashboard</span>
+          </span>
+        </a>
+        @if(userProfile.profileName === 'stakeholder'){
+        <a
+          routerLink="/create-ticket"
           class="block p-2 rounded cursor-pointer font-semibold text-black/70 hover:bg-[#f3f7fa] hover:text-[#5251f1]"
         >
           <span class="flex items-center gap-3 px-2">
@@ -154,7 +191,9 @@
             <span>Create Ticket</span>
           </span>
         </a>
+        }
         <a
+          routerLink="tickets"
           class="block p-2 rounded cursor-pointer font-semibold text-black/70 hover:bg-[#f3f7fa] hover:text-[#5251f1]"
         >
           <span class="flex items-center gap-3 px-2">
@@ -173,17 +212,21 @@
             <fa-icon [icon]="['fas', 'user']" class="cursor-pointer"></fa-icon>
           </div>
           <div>
-            <span class="block text-sm font-bold text-[#5251f1]">USER</span>
-            <span class="block text-[0.7rem]">PROFILE</span>
+            <span class="block text-sm font-bold text-[#5251f1]">{{
+              user.name
+            }}</span>
+            <span class="block text-[0.7rem] uppercase">{{
+              userProfile.profileName
+            }}</span>
           </div>
         </div>
 
         <div class="flex item-center justify-between pt-6">
-          <a class="flex gap-2 items-center">
+          <a class="flex gap-2 items-center" (click)="navigate('/profile')">
             <i class="bi bi-person-circle"></i>
             <span class="text-[12px] font-semibold block">Profile</span>
           </a>
-          <a class="flex gap-2 items-center">
+          <a class="flex gap-2 items-center" (click)="logout()">
             <fa-icon
               [icon]="['fas', 'right-from-bracket']"
               class="cursor-pointer"
@@ -195,3 +238,5 @@
     </div>
   </div>
 </div>
+
+}
